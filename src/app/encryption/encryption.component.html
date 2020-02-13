@@ -1,0 +1,81 @@
+<nz-divider style="color: #001529;" nzText="Encryption"></nz-divider>
+<div nz-col nzSpan="6" nzOffset="2">
+  <nz-card style="width:100%;">
+    <h3 style="font-weight: 400;">Plain Text</h3>
+
+    <input
+      nz-input
+      placeholder="Enter Plain Text"
+      name="plainText"
+      [(ngModel)]="plainText"
+    />
+    
+  </nz-card>
+  <br>
+  <button (click)="resetFields()" style="width: 60%;margin-left: 20%;" nz-button nzType="danger" nzGhost>Reset Encryption Fields</button>
+</div>
+
+<div nz-col nzSpan="6" nzOffset="1">
+  <nz-card style="width:100%;">
+    <h4 style="font-weight: 400;">Select Key</h4>
+    <input
+      nz-tooltip nzTooltipTitle="Enter key as number for Ceaser Cipher else String keyword"
+      nz-input
+      placeholder="Enter Key"
+      name="key"
+      nzSize="small"
+      [(ngModel)]="keyEncr"
+    />
+    <br /><br />
+    <h3 style="font-weight: 400;">Select Algorithm</h3>
+
+    <nz-select
+      [(ngModel)]="algo"
+      (nzOpenChange)="encryptingAlgos()"
+      name="algo"
+      style="width: 100%;"
+    >
+      <nz-option
+        [nzLabel]="algo.label"
+        *ngFor="let algo of algos"
+        [nzValue]="algo.value"
+      ></nz-option>
+    </nz-select>
+
+    <div *ngIf = "showError">
+        <nz-alert nzType="error" nzMessage="Key must be a number for ceaser cipher"></nz-alert>
+    </div>
+  </nz-card>
+</div>
+
+<div nz-col nzSpan="6" nzOffset="1">
+  <nz-card style="width:100%;">
+    <h3 style="font-weight: 400;">Cipher Text</h3>
+
+    <input
+      style="color: black;"
+      nz-input
+      placeholder="Cipher Text"
+      [disabled]="true"
+      name="cipherText"
+      [(ngModel)]="cipherText"
+    />
+  </nz-card>
+  <br>
+  <div *ngIf="!checkAlgo()  ">
+  <nz-divider style="color: #4c65a1;" nzText="Encryption" nzOrientation="left"></nz-divider>
+</div>
+<div *ngIf="checkAlgo() && !showError">
+    <nz-divider style="color: #4ca156;" nzText="Encryption Success" nzOrientation="right"></nz-divider>
+
+</div>
+<div *ngIf="showError">
+    <nz-divider style="color: #e06b5c;" nzText="Encryption Error :(" nzOrientation="center"></nz-divider>
+</div>
+
+  <!-- <nz-avatar
+      nzText="Encryption"
+      nzSize="large"
+      style="vertical-align: middle;background-color:#f56a00"
+    ></nz-avatar> -->
+</div>
